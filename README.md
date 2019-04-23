@@ -2,7 +2,9 @@ Variational autoencoder for genotype data
 
 ## Overview
 
-This script can be used to obtain a latent representation & reconstructions of genotype data in EIGENSTRAT format encoding 0,1 or 2 denoting the SNP loci. The script has the following arguments:
+This script can be used to obtain a latent representation & reconstructions of genotype data in EIGENSTRAT format encoding 0,1 or 2 denoting the SNP loci. The key is to onehot encode the SNP loci and then flatten the input into a 3 x number_of_features vector before parsing it to the first hidden layer. The script provides the latent space means which can be thought of as a dimensionality reduction method as an alternative to classical methods such as PCA/t-SNE ect.
+
+The script has the following arguments:
 
 - ```--i ```: (required) path to csv file
 - ```--n_feat ```: (required) number of features (SNP loci)
