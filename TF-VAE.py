@@ -224,10 +224,10 @@ def run(args):
 
       ## Get genotype data
       data=get_data(data_path)
-      ran=20
+      ran=30
 
       # run epochs
-      for epoch in range(args.nepochs):
+      for epoch in range(args.epochs):
 
          # prepare list for collecting data for minibatches
          mb_dict = {"CE":[], "KLd": [], "loss": []}
@@ -238,7 +238,7 @@ def run(args):
             D = data2.sample(n=args.batch,axis=0)
             data2=data2.drop(D.index)
             batch=np.array(D)
-            _, vaecost, cre, KLd,  summary = sess.run([train_step, vae_cost, cross_entropy, KL_divergence, merged], feed_dict={x_data: batch, is_training_pl: True})
+            _, vaecost, cre, KLd,  summary = sess.run([train_step, total_loss, cross_entropy, KL_divergence, merged], feed_dict={x_data: batch, beta: beta_, is_training: True})
             mb_dict["loss"].append(vaecost)
             mb_dict["CE"].append(cre)
             mb_dict["KLd"].append(KLd)
@@ -285,7 +285,7 @@ def run(args):
             #drop those individuals after use
             data=data.drop(ind)
             batch_test=np.array(D.iloc[:,0:n_feat])
-            vaecost, cre, KLd, mu, x_reconstruction = sess.run([vae_cost, cross_entropy, KL_divergence, z_mean,x_decoded], feed_dict={x_data: batch_test,beta: beta_, is_training: False})
+            vaecost, cre, KLd, mu, x_reconstruction = sess.run([total_loss, cross_entropy, KL_divergence, z_mean,x_decoded], feed_dict={x_data: batch_test,beta: beta_, is_training: False})
             la_dict["loss"].append(vaecost)
             la_dict["CE"].append(cre)
             la_dict["KLd"].append(KLd)
@@ -309,7 +309,7 @@ if __name__ == '__main__':
    parser.add_argument('--n_feat', help='number of features', nargs="+", required=True)
    parser.add_argument('--batch', help='batch size [100]', type=int, default=100)
    parser.add_argument('--n_layers', help='number of hidden layers', type=int, default=1)
-   parser.add_argument('--n_hidden', help='number of hidden neurons (list)', nargs="+",required=True)
+   parser.add_argument('--hidden', help='number of hidden neurons (list)', nargs="+",required=True)
    parser.add_argument('--latent', help='number of latent neurons (list)',required=True)
    parser.add_argument('--epochs', help='number of epochs [10]', type=int, default=10)
    parser.add_argument('--lrate', help='learning rate [1e-4]', type=float, default=1e-4)

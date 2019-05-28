@@ -24,6 +24,12 @@ Then simply run:
 
 The script should write latent space, genotype reconstructions and observation labels to 3 files.
 
+Example:
+
+```python TF-VAE.py --i sample_genotypes.csv --n_feat 10000 --batch 5 --hidden 250 --epochs 5 --latent 10 --o 'vae'```
+
+Then in the "vae" folder you should find the genotype reconstructions & latent space representation. 
+
 ## Notice
 
 This method of reading entire genotype data from csv file into memory not efficient and is only for testing on small genotype sample (up to 500.000 SNP loci) and thus not intended for use on large genotype data. 
