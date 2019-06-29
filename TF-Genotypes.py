@@ -120,7 +120,7 @@ def vae_model(input_shape,
 
 if __name__ == '__main__':
 
-	parser = argparse.ArgumentParser(prog='TF-VAE.py', formatter_class=lambda prog: argparse.HelpFormatter(prog,max_help_position=50, width=130), usage='%(prog)s [options]', description='Variational Autoencoder using TensorFlow on genotype data')
+	parser = argparse.ArgumentParser(prog='TF-Genotypes.py', formatter_class=lambda prog: argparse.HelpFormatter(prog,max_help_position=50, width=130), usage='%(prog)s [options]', description='Variational Autoencoder using TensorFlow on genotype data')
 	parser.add_argument('--input', help='genotypes', required=True, nargs="+")
 	parser.add_argument('--n_feat', help='number of features', nargs="+", required=True, type=int)
 	parser.add_argument('--batch', help='batch size [100]', type=int, default=100)
@@ -129,7 +129,6 @@ if __name__ == '__main__':
 	parser.add_argument('--epochs', help='number of epochs [10]', type=int, default=10)
 	args = parser.parse_args()
 	
-
 	original_dim = args.n_feat[0]*3
 	input_shape = (args.n_feat[0]*3, )
 	intermediate_dim = args.hidden
@@ -137,18 +136,11 @@ if __name__ == '__main__':
 	latent_dim = args.latent
 	epochs = args.epochs
 
-
 	X_train, X_test = get_data(args.input[0])
-	vae, encodeer_model = vae_model(input_shape,
-									intermediate_dim,
-									latent_dim,
-									original_dim )
+	vae, encoder_model = vae_model(input_shape, intermediate_dim, latent_dim, original_dim )
 
 	#train
 	vae.fit(X_train, epochs=epochs, batch_size=batch_size, validation_data=(X_test, None), verbose=1)
 
 	# Plot latent space
-	plot_results(encodeer_model, 
-					X_test,
-					batch_size=batch_size, 
-					model_name="lanent_space")
+	plot_results(encoder_model, X_test, batch_size=batch_size, model_name="lanent_space")
