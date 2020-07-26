@@ -142,4 +142,4 @@ if __name__ == '__main__':
 	vae.fit(X_train, epochs=epochs, batch_size=batch_size, validation_data=(X_test, None), verbose=1)
 
 	# Plot latent space
-	plot_results(encoder_model, X_test, batch_size=batch_size, model_name="lanent_space")
+	plot_results(encoder_model, X_test, batch_size=batch_size, model_name="latent_space")

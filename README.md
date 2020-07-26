@@ -23,7 +23,7 @@ The script should write latent space, genotype reconstructions and observation l
 
 Example:
 
-```python TF-Genotypes.py --input sample_genotypes.csv --n_feat 10000 --batch 50 --hidden 250 --latent 5 --epochs 20```
+```python TF-Genotypes.py --input data/sample_genotypes.csv --n_feat 10000 --batch 50 --hidden 250 --latent 5 --epochs 20```
 
 Then in the "vae" folder you should find the genotype reconstructions & latent space representation. 
 
